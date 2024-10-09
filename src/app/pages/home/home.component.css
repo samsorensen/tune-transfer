@@ -1,0 +1,73 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+img {
+    display: flex;
+    align-self: center;
+    width: 20px;
+    height: 20px;
+}
+
+.title {
+    display: flex;
+    gap: 10px;
+}
+
+.globe-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transform: scale(1.25);
+    transition: color 0.2s ease;
+}
+
+.globe-button:hover {
+    color: #7b7b7b;
+}
+
+h1 {
+    text-align: center;
+    font-size: large;
+}
+
+p.paragraph {
+    display: block;
+    margin: auto;
+    font-size: small;
+    text-align: center;
+    width: 500px;
+}
+
+.start-button {
+    display: block;
+    padding: 10px 20px;
+    margin: auto;
+    margin-top: 40px;
+    background-color: #79baff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.start-button:hover {
+    background-color: #3783d4;
+}
+
+.logos {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    transform: scale(1.25);
+}
+
+

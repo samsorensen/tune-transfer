@@ -1,0 +1,29 @@
+<div class="header">
+    <div class="title">
+        <img src="../../../assets/note.png" alt="Note">
+        <p>Tune Transfer</p>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="globe-button">
+        <i class="bi bi-globe"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+        @for (lang of languages; track lang.code) {
+            <div>
+                <button mat-menu-item>
+                    <span class="fi fi-{{ lang.code }}"></span>  {{ lang.name }}
+                </button>
+            </div>
+        }
+    </mat-menu>
+</div>
+
+<h1>{{ title }}</h1>
+<!-- <h1>{{ title | translator:selectedLang }}</h1> -->
+<p class="paragraph">{{ description }}</p>
+
+<button class="start-button">Get Started</button>
+<div class="logos">
+    <i class="bi bi-spotify"></i>
+    <i class="bi bi-arrow-left-right"></i>
+    <i class="bi bi-youtube"></i>
+</div>
