@@ -5,14 +5,14 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatIconModule } from '@angular/material/icon'
+import { Router } from '@angular/router'
 
-import { TranslatorPipe } from '../../pipes/translator.pipe'
-
+import { TitleHeaderComponent } from '../../components/title-header/title-header.component'
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, FormsModule, MatMenuModule, TranslatorPipe],
+  imports: [MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, FormsModule, MatMenuModule, TitleHeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -21,16 +21,10 @@ export class HomeComponent {
   title: string = 'Transfer Tunes Between Different Services!';
   description: string = 'Easily move your music collection between all your favorite streaming platforms! Compatible with Spotify, YouTube, Apple Music, and more.';
 
-  selectedLang: string = 'English';
-  languages = [
-    { code: 'us', name: 'English' },
-    { code: 'es', name: 'Spanish' },
-    { code: 'de', name: 'German' },
-    { code: 'fr', name: 'French' } 
-  ];
+  constructor(private router: Router) {}
 
-  onGlobeClicked(lang: string) {
-    this.selectedLang = lang;
+  onGetStarted() {
+    this.router.navigate(['/spotify-login']);
   }
 
 }

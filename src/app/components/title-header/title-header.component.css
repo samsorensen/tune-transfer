@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.blank-button {
+    border: none;
+    background: none;
+    padding: 5px;
+    padding-left: 10px;
+    cursor: pointer;
+    transform: scale(1.25);
+}
+
+.title {
+    display: flex;
+    gap: 5px;
+}
+
+img {
+    display: flex;
+    align-self: center;
+    width: 20px;
+    height: 20px;
+}
+
+.globe-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transform: scale(1.25);
+    transition: color 0.2s ease;
+}
+
+.globe-button:hover {
+    color: #7b7b7b;
+}

@@ -11,7 +11,7 @@ p.paragraph {
     width: 500px;
 }
 
-.start-button {
+.next-button {
     display: block;
     padding: 10px 20px;
     margin: auto;
@@ -25,14 +25,6 @@ p.paragraph {
     transition: background-color 0.2s ease;
 }
 
-.start-button:hover {
+.next-button:hover {
     background-color: #3783d4;
-}
-
-.logos {
-    margin: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    transform: scale(1.25);
 }
