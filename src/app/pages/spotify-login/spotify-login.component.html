@@ -8,4 +8,8 @@
 
 <button (click)="signInButton()" class="next-button">Log access token</button>
 
-<!-- <button (click)="onNextClicked()" class="next-button">Next</button> -->
+<ul>
+    @for (playlist of playlists; track playlist.id) {
+        <li>{{ playlist.name }} - @if(playlist.description) { {{ playlist.description }} }</li>
+    }
+</ul>

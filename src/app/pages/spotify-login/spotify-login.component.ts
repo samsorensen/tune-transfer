@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { TitleHeaderComponent } from "../../components/title-header/title-header.component"
 import { SpotifyService } from '../../services/spotify.service'
 import { ActivatedRoute } from '@angular/router'
+import { PlaylistItem } from '../../models/spotify/api-response.interface'
 
 @Component({
   selector: 'app-second',
@@ -14,6 +15,8 @@ export class SpotifyLoginComponent {
   title = 'Spotify Login'
   description = 'Login to Spotify to access your playlists and songs'
 
+  playlists: PlaylistItem[] = []
+
   constructor(private spotifyService: SpotifyService, private route: ActivatedRoute) {}
 
   async ngOnInit() {
@@ -23,19 +26,14 @@ export class SpotifyLoginComponent {
       const storedState = localStorage.getItem('spotify_auth_state')
 
       if (state === undefined || state !== storedState) {
-        console.error('State mismatch')
         return
       }
       localStorage.removeItem('spotify_auth_state')
-
       if (code !== undefined) {
         await this.spotifyService.reqAccessToken(code)
       }
 
-      // this.spotifyService.tokenReceived.subscribe(token => {
-      //   this.token = token
-      //   console.log('Token in Component:', token)
-      // })
+      this.playlists = await this.spotifyService.getPlaylists()
     })
   }
 
