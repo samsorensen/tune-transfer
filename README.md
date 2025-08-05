@@ -4,11 +4,14 @@ A web application that allows you to transfer your music playlists between diffe
 
 ## Getting Started
 
-First, run the development server:
+First, install the modules:
+```bash
+pnpm install
+```
+
+Second, run the development server:
 
 ```bash
-npm run dev
-# or
 pnpm dev
 ```
 

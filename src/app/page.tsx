@@ -3,8 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Music, Zap, Shield, Play, ListMusic } from "lucide-react"
 import Link from "next/link"
-import { FaSpotify } from "react-icons/fa"
-import { SiYoutubemusic } from "react-icons/si";
+import { SpotifyIcon, YouTubeMusicIcon } from "@/components/ui/icons"
 
 export default function LandingPage() {
   return (
@@ -45,13 +44,15 @@ export default function LandingPage() {
             carefully curated music collection when switching platforms.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-red-500 to-blue-500 hover:from-red-600 hover:to-blue-700"
-            >
-              Start Transfer
-              {/* <ArrowRight className="w-5 h-5 ml-2" /> */}
-            </Button>
+            <Link href="/connect-spotify">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-red-500 to-blue-500 hover:from-red-600 hover:to-blue-700"
+              >
+                Start Transfer
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
             <Button size="lg" variant="outline">
               {/* <Play className="w-5 h-5 mr-2" /> */}
               Watch Demo
@@ -61,14 +62,14 @@ export default function LandingPage() {
           {/* Platform Icons */}
           <div className="flex items-center justify-center gap-4 mt-8">
             <div className="flex items-center gap-3">
-              <FaSpotify className="text-green-500 text-3xl" />
+              <SpotifyIcon className="text-green-500 text-3xl" />
               <span className="text-md font-medium text-gray-700">Spotify</span>
             </div>
             <div className="flex items-center gap-2">
               <ArrowRight className="text-gray-400 w-5 h-5" />
             </div>
             <div className="flex items-center gap-3">
-              <SiYoutubemusic className="text-red-500 text-3xl" />
+              <YouTubeMusicIcon className="text-red-500 text-3xl" />
               <span className="text-md font-medium text-gray-700">YouTube Music</span>
             </div>
           </div>
@@ -145,10 +146,12 @@ export default function LandingPage() {
             Join thousands of music lovers who have successfully moved their playlists. Start your transfer today and
             keep your music collection intact.
           </p>
-          <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
-            Start Free Transfer
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <Link href="/connect-spotify">
+            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
+              Start Free Transfer
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
         </div>
       </section>
 
