@@ -5,6 +5,7 @@ A web application that allows you to transfer your music playlists between diffe
 ## Getting Started
 
 First, install the modules:
+
 ```bash
 pnpm install
 ```

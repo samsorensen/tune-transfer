@@ -2,3 +2,4 @@ node_modules
 .next
 .cursorrules
 .DS_Store
+.env
