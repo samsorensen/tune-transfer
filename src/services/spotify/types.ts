@@ -11,12 +11,6 @@ export interface AuthError {
   error_description?: string
 }
 
-export interface AuthCallbackResult {
-  code: string | null
-  state: string | null
-  error: string | null
-}
-
 export interface SpotifyAuthParams {
   response_type: string
   client_id: string

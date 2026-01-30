@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
+import { getAccessToken } from '@/services/spotify/auth'
 
 export default function SpotifyCallbackPage() {
   const searchParams = useSearchParams()
@@ -26,15 +27,7 @@ export default function SpotifyCallbackPage() {
     }
 
     // Exchange code for token
-    fetch('/api/spotify/callback', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code })
-    })
-      .then(res => {
-        if (!res.ok) throw new Error('Token exchange failed')
-        return res.json()
-      })
+    getAccessToken(code)
       .then(() => {
         setStatus('success')
         setTimeout(() => router.push('/playlists'), 1500)

@@ -1,12 +1,13 @@
 'use server'
 
 import { generateRandomString, sha256, base64encode } from '@/lib/utils'
-import { TokenResponse, AuthError, AuthCallbackResult, SpotifyAuthParams, TokenRequestPayload } from './types'
+import { TokenResponse, TokenRequestPayload } from './types'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import { env } from '@/config/env'
 
-const clientId = process.env.SPOTIFY_CLIENT_ID!
-const redirectUri = process.env.SPOTIFY_REDIRECT_URI!
+const clientId = env.spotify.clientId
+const redirectUri = env.spotify.redirectUri
 
 export async function requestUserAuthorization() {
   const codeVerifier = generateRandomString(64)
@@ -19,7 +20,7 @@ export async function requestUserAuthorization() {
   const cookieStore = await cookies()
   cookieStore.set('code_verifier', codeVerifier, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: env.nodeEnv === 'production',
     sameSite: 'lax',
     maxAge: 60 * 10 // 10 minutes
   })
@@ -35,13 +36,6 @@ export async function requestUserAuthorization() {
 
   authUrl.search = new URLSearchParams(params).toString()
   redirect(authUrl.toString())
-}
-
-export async function handleSpotifyCallback(searchParams: URLSearchParams): Promise<AuthCallbackResult> {
-  const code = searchParams.get('code')
-  const state = searchParams.get('state')
-  const error = searchParams.get('error')
-  return { code, state, error }
 }
 
 export async function getAccessToken(code: string) {
@@ -80,7 +74,7 @@ export async function getAccessToken(code: string) {
   // Store token in httpOnly cookie
   cookieStore.set('access_token', tokenData.access_token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: env.nodeEnv === 'production',
     sameSite: 'lax',
     maxAge: tokenData.expires_in
   })
