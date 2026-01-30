@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Music } from 'lucide-react'
 
 interface HeaderProps {
