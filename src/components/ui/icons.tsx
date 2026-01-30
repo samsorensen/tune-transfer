@@ -9,11 +9,11 @@ const SpotifyIcon = (props: SpotifyIconProps) => (
 )
 
 const YouTubeMusicIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <circle cx="12" cy="12" r="12" /> {/* Outer circle */}
-    <circle cx="12" cy="12" r="7" fill="white" /> {/* Inner ring */}
-    <circle cx="12" cy="12" r="6" /> {/* Inner circle */}
-    <path d="M10 8.5v7l6-3.5-6-3.5z" fill="white" /> {/* Play button */}
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <circle cx="12" cy="12" r="12" fill="#FF0000" />
+    <circle cx="12" cy="12" r="7" fill="white" />
+    <circle cx="12" cy="12" r="6" fill="#FF0000" />
+    <path d="M10 8.5v7l6-3.5-6-3.5z" fill="white" />
   </svg>
 )
 
