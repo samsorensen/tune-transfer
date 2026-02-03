@@ -1,41 +1,39 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CheckCircle, Info, Shield } from 'lucide-react'
-import { SpotifyIcon } from '@/components/ui/icons'
-import { requestUserAuthorization, ConnectionStatus } from '@/services'
+import { YouTubeMusicIcon } from '@/components/ui/icons'
+import { ConnectionStatus } from '@/services'
 
-interface SpotifyConnectionCardProps {
+interface YouTubeConnectionCardProps {
   connectionStatus: ConnectionStatus
   onStatusChange: (status: ConnectionStatus) => void
 }
 
-export function SpotifyConnectionCard({ connectionStatus, onStatusChange }: SpotifyConnectionCardProps) {
+export function YouTubeConnectionCard({ connectionStatus, onStatusChange }: YouTubeConnectionCardProps) {
   const handleConnect = async () => {
     onStatusChange('connecting')
-    try {
-      await requestUserAuthorization()
-    } catch (error) {
-      console.error('Spotify connection failed:', error)
-      onStatusChange('error')
-    }
+    // TODO: Implement YouTube OAuth flow
+    setTimeout(() => {
+      onStatusChange('idle')
+    }, 1000)
   }
 
   return (
     <Card className="mb-8">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Shield className="w-5 h-5 text-green-600" />
+          <Shield className="w-5 h-5 text-red-600" />
           Secure Connection
         </CardTitle>
-        <CardDescription>We use Spotify&apos;s official OAuth to securely access your account. Your credentials are never stored.</CardDescription>
+        <CardDescription>We use Google&apos;s official OAuth to securely access your YouTube Music account.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
-            <CheckCircle className="w-5 h-5 text-green-600" />
+          <div className="flex items-center gap-3 p-4 bg-red-50 rounded-lg border border-red-200">
+            <CheckCircle className="w-5 h-5 text-red-600" />
             <div>
-              <p className="font-medium text-green-900">Read-only access</p>
-              <p className="text-sm text-green-700">We can only read your playlists, not modify them</p>
+              <p className="font-medium text-red-900">Write access</p>
+              <p className="text-sm text-red-700">We&apos;ll create playlists and add tracks to your account</p>
             </div>
           </div>
 
@@ -43,7 +41,7 @@ export function SpotifyConnectionCard({ connectionStatus, onStatusChange }: Spot
             <Shield className="w-5 h-5 text-blue-600" />
             <div>
               <p className="font-medium text-blue-900">Secure OAuth</p>
-              <p className="text-sm text-blue-700">Uses Spotify&apos;s official authentication system</p>
+              <p className="text-sm text-blue-700">Uses Google&apos;s official authentication system</p>
             </div>
           </div>
 
@@ -51,7 +49,7 @@ export function SpotifyConnectionCard({ connectionStatus, onStatusChange }: Spot
             <Info className="w-5 h-5 text-orange-600" />
             <div>
               <p className="font-medium text-orange-900">What we access</p>
-              <p className="text-sm text-orange-700">Your playlists, saved tracks, and profile information</p>
+              <p className="text-sm text-orange-700">Ability to create and manage playlists in YouTube Music</p>
             </div>
           </div>
         </div>
@@ -59,11 +57,11 @@ export function SpotifyConnectionCard({ connectionStatus, onStatusChange }: Spot
         <div className="mt-6">
           <Button
             size="lg"
-            className="w-full bg-green-600 hover:bg-green-700 text-white"
+            className="w-full bg-red-50 border border-red-600 text-red-600 hover:bg-red-100 hover:border-red-700 hover:text-red-700"
             onClick={handleConnect}
             disabled={connectionStatus === 'connecting'}>
-            <SpotifyIcon className="w-5 h-5 mr-2" />
-            {connectionStatus === 'connecting' ? 'Connecting...' : connectionStatus === 'success' ? 'Connected' : 'Connect with Spotify'}
+            <YouTubeMusicIcon className="w-5 h-5 mr-2" />
+            {connectionStatus === 'connecting' ? 'Connecting...' : connectionStatus === 'success' ? 'Connected' : 'Connect with YouTube Music'}
           </Button>
         </div>
       </CardContent>

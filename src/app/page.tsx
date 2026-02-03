@@ -1,7 +1,3 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { ArrowRight, Music, Zap, Shield, Play, ListMusic } from 'lucide-react'
 import Link from 'next/link'
 import { Header } from '@/components/ui/header'
 import { Hero } from '@/components/ui/hero'

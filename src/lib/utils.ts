@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const generateRandomString = (length: number = 64): string => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  let values = crypto.getRandomValues(new Uint8Array(length))
+  const values = crypto.getRandomValues(new Uint8Array(length))
   return values.reduce((acc, value) => acc + possible[value % possible.length], '')
 }
 

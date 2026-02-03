@@ -17,8 +17,8 @@ export async function GET() {
     })
 
     if (!response.ok) {
-      const error = await response.json()
-      return NextResponse.json({ error: error.error?.message || 'Failed to fetch playlists' }, { status: response.status })
+      // const error = await response.json()
+      return NextResponse.json({ error: 'Failed to fetch playlists' }, { status: response.status })
     }
 
     const data = await response.json()

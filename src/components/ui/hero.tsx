@@ -13,7 +13,7 @@ export function Hero() {
           Keep Your Vibe
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Seamlessly transfer your playlists from Spotify to YouTube Music in just a few clicks. Don't lose your carefully curated music collection
+          Seamlessly transfer your playlists from Spotify to YouTube Music in just a few clicks. Don&apos;t lose your carefully curated music collection
           when switching platforms.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
