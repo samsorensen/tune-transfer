@@ -2,11 +2,31 @@
   "name": "tune",
   "version": "0.1.0",
   "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "js-yaml@>=4.0.0 <4.1.1": ">=4.1.1",
+      "next@>=10.0.0 <15.5.10": ">=15.5.10",
+      "next@>=15.0.0-canary.0 <15.4.7": ">=15.4.7",
+      "next@>=15.0.0-canary.0 <15.6.0-canary.61": ">=15.6.0-canary.61",
+      "next@>=15.4.0-canary.0 <15.4.11": ">=15.4.11",
+      "next@>=15.4.0-canary.0 <15.4.8": ">=15.4.8",
+      "next@>=15.4.0-canary.0 <15.4.9": ">=15.4.9",
+      "tar@<7.5.7": ">=7.5.7",
+      "tar@<=7.5.2": ">=7.5.3",
+      "tar@<=7.5.3": ">=7.5.4"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ignore-pattern .next --ignore-pattern node_modules",
     "test": "vitest run"
   },
   "dependencies": {
