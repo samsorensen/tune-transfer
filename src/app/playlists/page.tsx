@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import Image from 'next/image'
+import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { SpotifyIcon, YouTubeMusicIcon } from '@/components/ui/icons'
 
@@ -100,7 +101,7 @@ export default function PlaylistsPage() {
             <Card key={playlist.id} className="overflow-hidden hover:shadow-lg transition-shadow">
               <div className="flex">
                 {playlist.images[0] ? (
-                  <img
+                  <Image
                     src={playlist.images[0].url}
                     alt={playlist.name}
                     className="w-24 h-24 object-cover"

@@ -23,7 +23,7 @@ export function HowItWorks() {
           <div className="text-center">
             <div className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
             <h3 className="text-xl font-semibold mb-3">Transfer Complete</h3>
-            <p className="text-gray-600">Sit back and relax while we transfer your playlists. You'll get notified when it's done!</p>
+            <p className="text-gray-600">Sit back and relax while we transfer your playlists. You&apos;ll get notified when it&apos;s done!</p>
           </div>
         </div>
       </div>

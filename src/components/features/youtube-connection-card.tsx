@@ -25,7 +25,7 @@ export function YouTubeConnectionCard({ connectionStatus, onStatusChange }: YouT
           <Shield className="w-5 h-5 text-red-600" />
           Secure Connection
         </CardTitle>
-        <CardDescription>We use Google's official OAuth to securely access your YouTube Music account.</CardDescription>
+        <CardDescription>We use Google&apos;s official OAuth to securely access your YouTube Music account.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -33,7 +33,7 @@ export function YouTubeConnectionCard({ connectionStatus, onStatusChange }: YouT
             <CheckCircle className="w-5 h-5 text-red-600" />
             <div>
               <p className="font-medium text-red-900">Write access</p>
-              <p className="text-sm text-red-700">We'll create playlists and add tracks to your account</p>
+              <p className="text-sm text-red-700">We&apos;ll create playlists and add tracks to your account</p>
             </div>
           </div>
 
@@ -41,7 +41,7 @@ export function YouTubeConnectionCard({ connectionStatus, onStatusChange }: YouT
             <Shield className="w-5 h-5 text-blue-600" />
             <div>
               <p className="font-medium text-blue-900">Secure OAuth</p>
-              <p className="text-sm text-blue-700">Uses Google's official authentication system</p>
+              <p className="text-sm text-blue-700">Uses Google&apos;s official authentication system</p>
             </div>
           </div>
 

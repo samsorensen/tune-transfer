@@ -27,7 +27,7 @@ export function SpotifyConnectionCard({ connectionStatus, onStatusChange }: Spot
           <Shield className="w-5 h-5 text-green-600" />
           Secure Connection
         </CardTitle>
-        <CardDescription>We use Spotify's official OAuth to securely access your account. Your credentials are never stored.</CardDescription>
+        <CardDescription>We use Spotify&apos;s official OAuth to securely access your account. Your credentials are never stored.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -43,7 +43,7 @@ export function SpotifyConnectionCard({ connectionStatus, onStatusChange }: Spot
             <Shield className="w-5 h-5 text-blue-600" />
             <div>
               <p className="font-medium text-blue-900">Secure OAuth</p>
-              <p className="text-sm text-blue-700">Uses Spotify's official authentication system</p>
+              <p className="text-sm text-blue-700">Uses Spotify&apos;s official authentication system</p>
             </div>
           </div>
 
