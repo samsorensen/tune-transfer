@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Search, ArrowLeft } from 'lucide-react'
 import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { SpotifyIcon, YouTubeMusicIcon } from '@/components/ui/icons'
+import { Header } from '@/components/ui/header'
+import { SpotifyIcon } from '@/components/ui/icons'
+import { cn } from '@/lib/utils'
 
 interface Playlist {
   id: string
@@ -29,6 +31,15 @@ export default function PlaylistsPage() {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredPlaylists = useMemo(
+    () =>
+      playlists.filter(playlist =>
+        playlist.name.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [playlists, searchQuery]
+  )
 
   useEffect(() => {
     fetch('/api/spotify/playlists')
@@ -52,7 +63,7 @@ export default function PlaylistsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-red-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4" />
           <p className="text-lg">Loading your playlists...</p>
@@ -63,71 +74,99 @@ export default function PlaylistsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-red-50">
         <div className="text-center">
           <p className="text-lg text-red-500 mb-4">{error}</p>
-          <Button onClick={() => router.push('/connect/spotify')}>
+          <button
+            onClick={() => router.push('/connect/spotify')}
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+          >
             Reconnect to Spotify
-          </Button>
+          </button>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-red-50">
+      <Header
+        navigationLinks={
+          <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Home
+          </Link>
+        }
+      />
+
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <SpotifyIcon className="w-8 h-8 text-green-500" />
-            <div>
-              <h1 className="text-3xl font-bold">Your Spotify Playlists</h1>
-              <p className="text-muted-foreground">{total} playlists found</p>
-            </div>
+        <div className="flex items-center gap-3 mb-8">
+          <SpotifyIcon className="w-8 h-8 text-green-500" />
+          <div>
+            <h1 className="text-3xl font-bold">Your Spotify Playlists</h1>
+            <p className="text-muted-foreground">{total} playlists found</p>
           </div>
-          <Button
-            asChild
-            className="bg-red-50 border border-red-600 text-red-600 hover:bg-red-100 hover:border-red-700 hover:text-red-700"
-          >
-            <Link href="/connect/youtube">
-              <YouTubeMusicIcon className="w-5 h-5 mr-2" />
-              Connect YouTube Music
-            </Link>
-          </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {playlists.map(playlist => (
-            <Card key={playlist.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="flex">
+        <div className="relative max-w-md mb-8">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search playlists..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-card border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filteredPlaylists.map(playlist => (
+            <Card
+              key={playlist.id}
+              className={cn(
+                'overflow-hidden py-0 gap-0 group cursor-pointer',
+                'hover:shadow-xl hover:shadow-green-500/10 hover:-translate-y-1 hover:scale-[1.02]',
+                'transition-all duration-300'
+              )}
+            >
+              <div className="relative aspect-square overflow-hidden">
                 {playlist.images[0] ? (
                   <Image
                     src={playlist.images[0].url}
                     alt={playlist.name}
-                    width={96}
-                    height={96}
-                    className="w-24 h-24 object-cover"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-24 h-24 bg-muted flex items-center justify-center">
-                    <SpotifyIcon className="w-8 h-8 text-muted-foreground" />
+                  <div className="w-full h-full bg-muted flex items-center justify-center">
+                    <SpotifyIcon className="w-12 h-12 text-muted-foreground" />
                   </div>
                 )}
-                <div className="flex-1 p-4">
-                  <h3 className="font-semibold truncate" title={playlist.name}>
-                    {playlist.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {playlist.tracks.total} tracks
+              </div>
+              <div className="p-4">
+                <h3 className="font-semibold truncate" title={playlist.name}>
+                  {playlist.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {playlist.tracks.total} tracks · {playlist.owner.display_name}
+                </p>
+                {playlist.description && (
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                    {playlist.description}
                   </p>
-                  <p className="text-xs text-muted-foreground truncate">
-                    by {playlist.owner.display_name}
-                  </p>
-                </div>
+                )}
               </div>
             </Card>
           ))}
         </div>
+
+        {filteredPlaylists.length === 0 && playlists.length > 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">
+              No playlists match &ldquo;{searchQuery}&rdquo;
+            </p>
+          </div>
+        )}
 
         {playlists.length === 0 && (
           <div className="text-center py-12">
