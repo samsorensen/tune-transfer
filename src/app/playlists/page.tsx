@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { Search, ArrowLeft } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Header } from '@/components/ui/header'
-import { SpotifyIcon } from '@/components/ui/icons'
+import { SpotifyIcon, YouTubeMusicIcon } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 interface Playlist {
@@ -100,12 +100,21 @@ export default function PlaylistsPage() {
       />
 
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-3 mb-8">
-          <SpotifyIcon className="w-8 h-8 text-green-500" />
-          <div>
-            <h1 className="text-3xl font-bold">Your Spotify Playlists</h1>
-            <p className="text-muted-foreground">{total} playlists found</p>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <SpotifyIcon className="w-8 h-8 text-green-500" />
+            <div>
+              <h1 className="text-3xl font-bold">Your Spotify Playlists</h1>
+              <p className="text-muted-foreground">{total} playlists found</p>
+            </div>
           </div>
+          <Link
+            href="/connect/youtube"
+            className="flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-600 text-red-600 rounded-lg hover:bg-red-100 hover:border-red-700 hover:text-red-700 transition-colors"
+          >
+            <YouTubeMusicIcon className="w-5 h-5" />
+            Connect YouTube Music
+          </Link>
         </div>
 
         <div className="relative max-w-md mb-8">
