@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { getAccessToken } from '@/services/spotify/auth'
 
@@ -9,6 +9,7 @@ function CallbackContent() {
   const router = useRouter()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [error, setError] = useState<string | null>(null)
+  const exchangeInitiated = useRef(false)
 
   useEffect(() => {
     const code = searchParams.get('code')
@@ -25,6 +26,10 @@ function CallbackContent() {
       setError('No authorization code received')
       return
     }
+
+    // Prevent duplicate exchange in Strict Mode
+    if (exchangeInitiated.current) return
+    exchangeInitiated.current = true
 
     // Exchange code for token
     getAccessToken(code)
