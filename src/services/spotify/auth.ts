@@ -13,6 +13,7 @@ export async function requestUserAuthorization() {
   const codeVerifier = generateRandomString(64)
   const hashed = await sha256(codeVerifier)
   const codeChallenge = base64encode(hashed)
+  const state = generateRandomString(16)
 
   const scope = 'playlist-read-private'
   const authUrl = new URL('https://accounts.spotify.com/authorize')
@@ -24,6 +25,12 @@ export async function requestUserAuthorization() {
     sameSite: 'lax',
     maxAge: 60 * 10 // 10 minutes
   })
+  cookieStore.set('oauth_state', state, {
+    httpOnly: true,
+    secure: env.nodeEnv === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 10
+  })
 
   const params = {
     response_type: 'code',
@@ -31,15 +38,23 @@ export async function requestUserAuthorization() {
     scope,
     code_challenge_method: 'S256',
     code_challenge: codeChallenge,
-    redirect_uri: redirectUri
+    redirect_uri: redirectUri,
+    state
   }
 
   authUrl.search = new URLSearchParams(params).toString()
   redirect(authUrl.toString())
 }
 
-export async function getAccessToken(code: string) {
+export async function getAccessToken(code: string, state: string) {
   const cookieStore = await cookies()
+
+  const storedState = cookieStore.get('oauth_state')?.value
+  if (!storedState || storedState !== state) {
+    throw new Error('State mismatch: possible CSRF attack')
+  }
+  cookieStore.delete('oauth_state')
+
   const codeVerifier = cookieStore.get('code_verifier')?.value
 
   if (!codeVerifier) {

@@ -14,6 +14,7 @@ function CallbackContent() {
   useEffect(() => {
     const code = searchParams.get('code')
     const errorParam = searchParams.get('error')
+    const state = searchParams.get('state')
 
     if (errorParam) {
       setStatus('error')
@@ -27,12 +28,18 @@ function CallbackContent() {
       return
     }
 
+    if (!state) {
+      setStatus('error')
+      setError('No state parameter received')
+      return
+    }
+
     // Prevent duplicate exchange in Strict Mode
     if (exchangeInitiated.current) return
     exchangeInitiated.current = true
 
     // Exchange code for token
-    getAccessToken(code)
+    getAccessToken(code, state)
       .then(() => {
         setStatus('success')
         setTimeout(() => router.push('/playlists'), 1500)

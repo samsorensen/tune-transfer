@@ -18,6 +18,7 @@ export interface SpotifyAuthParams {
   code_challenge_method: string
   code_challenge: string
   redirect_uri: string
+  state: string
 }
 
 export interface TokenRequestPayload {
