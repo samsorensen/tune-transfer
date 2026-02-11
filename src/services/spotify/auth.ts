@@ -21,13 +21,13 @@ export async function requestUserAuthorization() {
   const cookieStore = await cookies()
   cookieStore.set('code_verifier', codeVerifier, {
     httpOnly: true,
-    secure: env.nodeEnv === 'production',
+    secure: env.nodeEnv !== 'development',
     sameSite: 'lax',
     maxAge: 60 * 10 // 10 minutes
   })
   cookieStore.set('oauth_state', state, {
     httpOnly: true,
-    secure: env.nodeEnv === 'production',
+    secure: env.nodeEnv !== 'development',
     sameSite: 'lax',
     maxAge: 60 * 10
   })
@@ -89,10 +89,20 @@ export async function getAccessToken(code: string, state: string) {
   // Store token in httpOnly cookie
   cookieStore.set('access_token', tokenData.access_token, {
     httpOnly: true,
-    secure: env.nodeEnv === 'production',
+    secure: env.nodeEnv !== 'development',
     sameSite: 'lax',
     maxAge: tokenData.expires_in
   })
 
-  return tokenData
+  cookieStore.delete('code_verifier')
+
+  if (tokenData.refresh_token) {
+    cookieStore.set('refresh_token', tokenData.refresh_token, {
+      httpOnly: true,
+      secure: env.nodeEnv !== 'development',
+      sameSite: 'lax'
+    })
+  }
+
+  return { success: true }
 }
